@@ -10,7 +10,7 @@ namespace BookingApp
         static void Main(string[] args)
         {
             bool runProgram = true;
-
+            Console.WriteLine("HejHEJ");
             //HardCodedValues.InsertWeekDayConferenceRoom();
             while (runProgram)
             {

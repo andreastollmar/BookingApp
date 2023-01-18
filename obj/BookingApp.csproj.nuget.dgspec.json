@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\andre\\OneDrive\\c# 2\\Visualstudio\\BookingApp\\BookingApp.csproj": {}
+    "C:\\Users\\andre\\OneDrive\\c# 2\\Visualstudio\\BookingApp\\BookingApp\\BookingApp.csproj": {}
   },
   "projects": {
-    "C:\\Users\\andre\\OneDrive\\c# 2\\Visualstudio\\BookingApp\\BookingApp.csproj": {
+    "C:\\Users\\andre\\OneDrive\\c# 2\\Visualstudio\\BookingApp\\BookingApp\\BookingApp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\andre\\OneDrive\\c# 2\\Visualstudio\\BookingApp\\BookingApp.csproj",
+        "projectUniqueName": "C:\\Users\\andre\\OneDrive\\c# 2\\Visualstudio\\BookingApp\\BookingApp\\BookingApp.csproj",
         "projectName": "BookingApp",
-        "projectPath": "C:\\Users\\andre\\OneDrive\\c# 2\\Visualstudio\\BookingApp\\BookingApp.csproj",
+        "projectPath": "C:\\Users\\andre\\OneDrive\\c# 2\\Visualstudio\\BookingApp\\BookingApp\\BookingApp.csproj",
         "packagesPath": "C:\\Users\\andre\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\andre\\OneDrive\\c# 2\\Visualstudio\\BookingApp\\obj\\",
+        "outputPath": "C:\\Users\\andre\\OneDrive\\c# 2\\Visualstudio\\BookingApp\\BookingApp\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\andre\\AppData\\Roaming\\NuGet\\NuGet.Config",
