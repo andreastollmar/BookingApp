@@ -9,15 +9,11 @@ namespace BookingApp
     {
         static void Main(string[] args)
         {
-            bool runProgram = true;
-            Console.WriteLine("HejHEJ");
+            bool runProgram = true;            
             //HardCodedValues.InsertWeekDayConferenceRoom();
             while (runProgram)
             {
                 Menus.ShowMenu("Main");
-
-
-
 
             }
         }

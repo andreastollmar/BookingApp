@@ -126,6 +126,14 @@ namespace BookingApp.Methods
                 int bookNrId = TryNumber(conferenceRoomForWeek.Count(), 0);
                 if (bookNrId == 0)
                 {
+                    Console.Clear();
+                    Menus.ShowMenu("Main");
+                }
+                else if (conferenceRoomForWeekToBook[bookNrId - 1].Booked == true)
+                {
+                    Console.Clear();
+                    Console.WriteLine("That day is already booked. Try again");
+                    Thread.Sleep(2000);
                     Menus.ShowMenu("Main");
                 }
                 else
@@ -138,8 +146,8 @@ namespace BookingApp.Methods
                     conferenceRoomForWeekToBook[bookNrId - 1].BookerName = inputName;
                     conferenceRoomForWeekToBook[bookNrId - 1].CompanyBookerName = inputCompanyName;
                     conferenceRoomForWeekToBook[bookNrId - 1].Booked = true;
-                    db.SaveChanges();                   
-
+                    db.SaveChanges();
+                    Console.Clear();
                 }
 
             }
