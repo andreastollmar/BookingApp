@@ -83,10 +83,12 @@ namespace BookingApp.Methods
         {
             using (var db = new BookingAppContext())
             {
+                int padSmall = 12;
+                int padLarge = 17;
                 var roomList = db.ConferenceRooms.ToList();
                 int i = 0;
                 int j = 0;
-
+                var weekList = db.Weeks.ToList();
                 foreach (var room in roomList)
                 {
                     i++;
@@ -94,10 +96,13 @@ namespace BookingApp.Methods
                 }
                 Console.WriteLine("Choose Room that you want to book: ");
                 int roomChoiceId = TryNumber(roomList.Count(), 1);
-
+                Console.Clear();
+                foreach (var week in weekList)
+                {
+                    Console.WriteLine("Week " + week.Id);
+                }
                 Console.WriteLine("For what week do you want to check availabilty? ");
-                int weekChoice = TryNumber(4, 1);
-
+                int weekChoice = TryNumber(4, 1);                
                 var result = (
                 from weekDayBookings in db.WeekDayBookings
                 join conferenceRoom in db.ConferenceRooms on weekDayBookings.ConferenceRoomId equals conferenceRoom.Id
@@ -110,11 +115,11 @@ namespace BookingApp.Methods
                 Console.Clear();
                 var conferenceRoomForWeek = db.WeekDayBookings.Where(x => x.WeekId == weekChoice && x.ConferenceRoomId == roomList[roomChoiceId - 1].Id);
                 var conferenceRoomForWeekToBook = db.WeekDayBookings.Where(x => x.WeekId == weekChoice && x.ConferenceRoomId == roomList[roomChoiceId - 1].Id).ToList();
-                Console.WriteLine("ID\tRoom Name\tWeek Nr\tDay\t\tStatus\tBooked By\tCompany Name");
+                Console.WriteLine("ID".PadRight(padSmall) + "Room Name".PadRight(padLarge) + "Week Nr".PadRight(padSmall) + "Day".PadRight(padLarge) + "Status".PadRight(padSmall) + "Booked By".PadRight(padSmall) + "Company Name");
                 foreach (var p in result)
                 {
                     j++;
-                    Console.WriteLine(j + "\t" + p.ConferenceRoom.Name + "\t\t" + p.Week.WeekNr + "\t" + p.Day.WeekDay + "\t\t" + (p.WeekDayBooking.Booked == null ? "Free" : "Booked") + "\t" + (p.WeekDayBooking.BookerName == null ? "Unbooked" : p.WeekDayBooking.BookerName) + "\t" + (p.WeekDayBooking.CompanyBookerName == null ? "Unbooked" : p.WeekDayBooking.CompanyBookerName));
+                    Console.WriteLine((j).ToString().PadRight(padSmall) + p.ConferenceRoom.Name.PadRight(padLarge) + p.Week.WeekNr.ToString().PadRight(padSmall) + p.Day.WeekDay.PadRight(padLarge) + (p.WeekDayBooking.Booked == null ? "Free" : "Booked").PadRight(padSmall) + (p.WeekDayBooking.BookerName == null ? "Unbooked" : p.WeekDayBooking.BookerName).PadRight(padSmall) + (p.WeekDayBooking.CompanyBookerName == null ? "Unbooked" : p.WeekDayBooking.CompanyBookerName));
                 }
                 Console.WriteLine("----------------------------------------------------------------------------------");
                 Console.WriteLine("Choose id of the day you want to book or go back with [0] ");

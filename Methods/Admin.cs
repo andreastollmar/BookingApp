@@ -27,6 +27,35 @@ namespace BookingApp.Methods
                 database.Add(newConferenceRoom);
                 database.SaveChanges();
             }
+            AddDayWeeksToConferenceRoom();
         }
+        public static void AddDayWeeksToConferenceRoom()
+        {
+            using (var db = new BookingAppContext())
+            {
+                var conferenceRoomList = db.ConferenceRooms.OrderBy(x => x.Id).LastOrDefault();
+                var conferenceRoom = db.ConferenceRooms.SingleOrDefault(x => x.Id == conferenceRoomList.Id);
+                var weekList = db.Weeks.ToList();
+                var dayList = db.Days.ToList();
+
+                for(int i = 0; i < weekList.Count; i++)
+                {
+                    int weekNr = i +1;
+                    for (int j = 0; j < dayList.Count(); j++)
+                    {
+                        var weekDayBooking = new WeekDayBooking
+                        {
+                            ConferenceRoomId = conferenceRoom.Id,
+                            WeekId = weekNr,
+                            DayId = j + 1
+                        };
+                        db.Add(weekDayBooking);
+                        db.SaveChanges();
+                    }
+
+                }
+            }
+        }
+
     }
 }
