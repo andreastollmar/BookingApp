@@ -57,5 +57,61 @@ namespace BookingApp.Methods
             }
         }
 
+        internal static void EditRoom()
+        {
+            using (var db = new BookingAppContext())
+            {
+                var conferenceRoomList = db.ConferenceRooms.ToList();
+                int i = 0;
+
+                foreach(var room in conferenceRoomList)
+                {
+                    i++;
+                    Console.WriteLine(i + ". Name: " + room.Name.PadRight(20) + " Seatings: " + room.NrOfSeatings);
+                }
+                Console.WriteLine("Enter Index of room you want to edit, [0] to return");
+                int roomToEdit = Helpers.TryNumber(conferenceRoomList.Count(), 0);
+                if(roomToEdit == 0)
+                {
+                    Console.Clear();
+                    Menus.ShowMenu("Main");
+                }
+                else
+                {
+                    Console.Clear();
+                    Console.WriteLine("What do you want to change? \n[1] = Name \n[2] = Seatings");
+                    int thingToChange = Helpers.TryNumber(2, 1);
+
+                    if(thingToChange == 1)
+                    {
+                        string input = "";
+                        Console.WriteLine("Enter new name of Conference Room");
+                        input = Helpers.CheckStringInput();
+                        var conferenceRoomToEdit = db.ConferenceRooms.Where(x => x.Id == conferenceRoomList[roomToEdit - 1].Id).SingleOrDefault();
+                        conferenceRoomToEdit.Name = input;
+                        db.SaveChanges();
+                        Console.Clear();
+                        Console.WriteLine("Name is updated");
+                        Thread.Sleep(1000);
+                        Menus.ShowMenu("Main");
+                        
+                    }
+                    else
+                    {
+                        int input = 0;
+                        Console.Write("Enter new number of seatings for conferenceroom: ");
+                        input = Helpers.TryNumber(24, 6);
+                        var conferenceRoomToEdit = db.ConferenceRooms.Where(x => x.Id == conferenceRoomList[roomToEdit - 1].Id).SingleOrDefault();
+                        conferenceRoomToEdit.NrOfSeatings = input;
+                        db.SaveChanges();
+                        Console.Clear();
+                        Console.WriteLine("Seatings are updated");
+                        Thread.Sleep(1000);
+                        Menus.ShowMenu("Main");
+                    }
+                }
+                    
+            }
+        }
     }
 }

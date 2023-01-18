@@ -20,7 +20,7 @@ namespace BookingApp.Methods
         enum Admin
         {
             Manage_Rooms = 1,
-            Manage_Employees,
+            See_Queries,
             Return = 0
         }
         enum AdminRooms
@@ -29,12 +29,14 @@ namespace BookingApp.Methods
             Edit_Room,
             Return = 0
         }
-        enum AdminUsers
+        enum SeeQueries
         {
-            List_Employees = 1,
-            Delete_Employee,
+            Most_Popular_Room = 1,
+            Nr_Of_Unbooked_Rooms,
+            Most_Popular_Week,
             Return = 0
         }
+        
         enum BrowseRooms
         {
             List_Rooms = 1,
@@ -47,6 +49,7 @@ namespace BookingApp.Methods
             bool goMain = true;
             bool adminStart = true;
             bool adminRoom = true;
+            bool adminQueries = true;
             if (value == "Main")
             {
                 while (goMain)
@@ -103,7 +106,11 @@ namespace BookingApp.Methods
                         case Admin.Manage_Rooms:
                             ShowMenu("AdminRooms");
                             adminStart = false;
-                            break;                        
+                            break;
+                        case Admin.See_Queries:
+                            ShowMenu("AdminQueries");
+                            adminStart = false;
+                            break;
                         case Admin.Return:
                             ShowMenu("Main");
                             adminStart = false;
@@ -135,7 +142,7 @@ namespace BookingApp.Methods
                             adminRoom = false;
                             break;
                         case AdminRooms.Edit_Room:
-                            
+                            Methods.Admin.EditRoom();
                             Console.Clear();
                             adminRoom = false;
                             break;
@@ -147,7 +154,44 @@ namespace BookingApp.Methods
                     }
                 }
             }
+            if(value == "AdminQueries")
+            {
+                while (adminQueries)
+                {
+                    foreach (int i in Enum.GetValues(typeof(SeeQueries)))
+                    {
+                        Console.WriteLine($"{i}. {Enum.GetName(typeof(SeeQueries), i).Replace("_", " ")}");
+                    }
 
+                    int nr;
+                    SeeQueries menu = (SeeQueries)99; //Default
+                    if (int.TryParse(Console.ReadKey(true).KeyChar.ToString(), out nr))
+                    {
+                        menu = (SeeQueries)nr;
+                        Console.Clear();
+                    }
+                    switch (menu)
+                    {
+                        case SeeQueries.Most_Popular_Room:
+                            
+                            adminQueries = false;
+                            break;
+                        case SeeQueries.Most_Popular_Week:
+                            
+                            adminQueries = false;
+                            break;
+                        case SeeQueries.Nr_Of_Unbooked_Rooms:
+                            adminQueries = false;
+                            break;                            
+                        case SeeQueries.Return:
+                            ShowMenu("Main");
+                            adminQueries = false;
+                            break;
+
+                    }
+                }
+
+            }
             
         }
 

@@ -57,31 +57,31 @@ namespace BookingApp.Methods
                 db.SaveChanges();
             }
         }
-        public static void InsertWeekDayConferenceRoom()
-        {
-            using (var db = new BookingAppContext())
-            {
-                var dayList = db.Days.ToList();
-                for(int i = 1; i < dayList.Count(); i++ )
-                {
-                    var newBooking = new WeekDayBooking
-                    {
-                        WeekId = 1,
-                        DayId = (i + 1),
-                        ConferenceRoomId = 1
-                    };
+        //public static void InsertWeekDayConferenceRoom()
+        //{
+        //    using (var db = new BookingAppContext())
+        //    {
+        //        var dayList = db.Days.ToList();
+        //        for(int i = 1; i < dayList.Count(); i++ )
+        //        {
+        //            var newBooking = new WeekDayBooking
+        //            {
+        //                WeekId = 1,
+        //                DayId = (i + 1),
+        //                ConferenceRoomId = 1
+        //            };
 
-                    db.Add(newBooking);
-                    db.SaveChanges();
-                }
+        //            db.Add(newBooking);
+        //            db.SaveChanges();
+        //        }
                
-            }
-        }
+        //    }
+        //}
         public static void AllInserts()
         {
             InsertWeekDays();
             InsertWeek();
-            InsertConferenceRoom();
+            //InsertConferenceRoom();
         }
 
     }
