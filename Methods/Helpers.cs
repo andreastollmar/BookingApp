@@ -182,21 +182,45 @@ namespace BookingApp.Methods
             using (var db = new BookingAppContext())
             {
                 var result = (
-                from weekDayBookings in db.WeekDayBookings                
+                from weekDayBookings in db.WeekDayBookings 
+                join week in db.Weeks on weekDayBookings.WeekId equals week.Id
 
                 where weekDayBookings.Booked == true
-                group weekDayBookings by weekDayBookings.Week into g
+                group weekDayBookings by weekDayBookings.WeekId into g
                 select new
                 {
-                    WeekNr = g.First().Week,
+                    WeekNr = g.First().Week.Id,
                     TotalBookings = g.Count(),
                 }
                 ).OrderByDescending(x => x.TotalBookings);
 
                 foreach (var key in result)
                 {
-                    Console.WriteLine(key.WeekNr + " is the most popular week at the moment with " + key.TotalBookings + " bookings");
+                    Console.WriteLine("Week nr: " + key.WeekNr + " is the most popular week at the moment with " + key.TotalBookings + " bookings");
                     break;
+                }
+            }
+        }
+        public static void GetNrOfUnbookedRooms()
+        {
+            using (var db = new BookingAppContext())
+            {
+                var result = (
+                from weekDayBookings in db.WeekDayBookings
+                join week in db.Weeks on weekDayBookings.WeekId equals week.Id
+
+                where weekDayBookings.Booked == null                
+                group weekDayBookings by weekDayBookings.Booked into g
+                select new
+                {   
+                    TotalUnbooked = g.Count(),
+                }
+                );
+
+                foreach (var key in result)
+                {
+                    Console.WriteLine("Total unbooked Days are : " + key.TotalUnbooked);
+                    
                 }
             }
         }
