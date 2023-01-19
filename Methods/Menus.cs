@@ -173,19 +173,19 @@ namespace BookingApp.Methods
                     switch (menu)
                     {
                         case SeeQueries.Most_Popular_Room:
+                            Helpers.GetMostPopularRoom();
                             
-                            adminQueries = false;
                             break;
                         case SeeQueries.Most_Popular_Week:
                             
-                            adminQueries = false;
+                            
                             break;
                         case SeeQueries.Nr_Of_Unbooked_Rooms:
-                            adminQueries = false;
+                           
                             break;                            
                         case SeeQueries.Return:
-                            ShowMenu("Main");
                             adminQueries = false;
+                            ShowMenu("Main");
                             break;
 
                     }

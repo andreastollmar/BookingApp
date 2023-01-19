@@ -16,7 +16,7 @@ namespace BookingApp.Methods
 
     internal class Helpers
     {
-        static readonly string _connString = "data source=.\\SQLEXPRESS; initial catalog = MyWebShop; persist security info = True; Integrated Security = True;";
+        static readonly string _connString = "Server=tcp:gameshopstopdb.database.windows.net,1433;Initial Catalog=bookingapAndreas;Persist Security Info=False;User ID=andreastollmar;Password=Hejsanmicke91;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
 
 
         public static string CheckStringInput()
@@ -153,6 +153,52 @@ namespace BookingApp.Methods
             }
         }
 
+        public static void GetMostPopularRoom()
+        {      
+            using (var db = new BookingAppContext())
+            {
+                var result = (
+                from weekDayBookings in db.WeekDayBookings
+                join conferenceRoom in db.ConferenceRooms on weekDayBookings.ConferenceRoomId equals conferenceRoom.Id                
 
+                where weekDayBookings.Booked == true group conferenceRoom by conferenceRoom.Name into g
+                select new
+                {
+                    ConferenceRoom = g.First().Name,
+                    TotalBookings = g.Count(),
+                }
+                ).OrderByDescending(x => x.TotalBookings);
+
+                foreach(var key in result)
+                {
+                    Console.WriteLine(key.ConferenceRoom + " is the most popular room with " + key.TotalBookings + " bookings");
+                    break;
+                }
+            }
+        }
+
+        public static void GetMostPopularWeek()
+        {
+            using (var db = new BookingAppContext())
+            {
+                var result = (
+                from weekDayBookings in db.WeekDayBookings                
+
+                where weekDayBookings.Booked == true
+                group weekDayBookings by weekDayBookings.Week into g
+                select new
+                {
+                    WeekNr = g.First().Week,
+                    TotalBookings = g.Count(),
+                }
+                ).OrderByDescending(x => x.TotalBookings);
+
+                foreach (var key in result)
+                {
+                    Console.WriteLine(key.WeekNr + " is the most popular week at the moment with " + key.TotalBookings + " bookings");
+                    break;
+                }
+            }
+        }
     }
 }

@@ -15,7 +15,7 @@ namespace BookingApp.Models
         public DbSet<Week> Weeks { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Server=.\\SQLExpress;Database=BookingAppDb;Trusted_Connection=True;");
+            optionsBuilder.UseSqlServer("Server=tcp:gameshopstopdb.database.windows.net,1433;Initial Catalog=bookingapAndreas;Persist Security Info=False;User ID=andreastollmar;Password=Hejsanmicke91;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
         }
     }
 
